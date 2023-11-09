@@ -8,11 +8,24 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color seedColor = Colors.green;
     return ChangeNotifierProvider(
       create: (context) => MainAppState(),
       child: MaterialApp(
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: seedColor,
+            brightness: Brightness.light
+          ),
+        ),
+        darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: seedColor,
+            brightness: Brightness.dark
+          ),
+        ),
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         home: const HomePage(),
