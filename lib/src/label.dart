@@ -6,11 +6,18 @@ class LabelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Label'),
+      ),
+      body: const Column(
         children: [
-          Text('LabelPage'),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'New Label',
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -6,10 +6,12 @@ class StylePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Style'),
+      ),
+      body: const Column(
         children: [
-          Text('StylePage'),
         ],
       ),
     );
