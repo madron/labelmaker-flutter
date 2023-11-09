@@ -1,57 +1,60 @@
 import 'package:flutter/material.dart';
+import 'label.dart';
+import 'style.dart';
 
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => HomePageState();
+}
+
+
+class HomePageState extends State<HomePage> {
+  var selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = const LabelPage();
+      case 1:
+        page = const StylePage();
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('LabelMaker'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.label),
-            tooltip: 'Labels',
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('This is a snackbar')));
-            },
+      body: Row(
+        children: [
+          SafeArea(
+            child: NavigationRail(
+              extended: false,
+              destinations: const [
+                NavigationRailDestination(
+                  icon: Icon(Icons.label),
+                  label: Text('Label'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.style),
+                  label: Text('Style'),
+                ),
+              ],
+              // selectedIndex: 0,
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (value) {
+                setState(() {
+                  selectedIndex = value;
+                });
+              },
+            ),
           ),
-          IconButton(
-            icon: const Icon(Icons.branding_watermark),
-            tooltip: 'Brands',
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute<void>(
-                builder: (BuildContext context) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: const Text('Brands'),
-                    ),
-                    body: const Center(
-                      child: Text(
-                        'Brand list',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                    ),
-                  );
-                },
-              ));
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.place_outlined),
-            tooltip: 'Placeholder',
-            onPressed: () {
-            },
+          Expanded(
+            child: page,
           ),
         ],
-      ),
-      body: const Center(
-        child: Text(
-          'This is the home page',
-          style: TextStyle(fontSize: 24),
-        ),
       ),
     );
   }
