@@ -13,8 +13,12 @@ void main() {
 
   testWidgets('Add button', (tester) async {
     await tester.pumpWidget(const TestWidgetsWrapper(child: LabelPage()));
-    final floatingActionButtons = find.byType(FloatingActionButton);
-    expect(floatingActionButtons, findsOneWidget);
+    final widget = find.byType(FloatingActionButton);
+    expect(widget, findsOneWidget);
+    // click button
+    await tester.tap(widget);
+    await tester.pump();
+
   });
 
 }
